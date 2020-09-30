@@ -11,8 +11,3 @@ Develop a full-functioning art search engine.
 4) Feature 5 New metric (Alice, Javin)
 5) Feature 8 Aesthetically pleasing frontend(s) (Lin)
 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
