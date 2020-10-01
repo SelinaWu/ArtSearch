@@ -22,6 +22,13 @@ root password: ArtSearchAm295
 
 Current method: 
 [Connect Cloud SQL to Python - pymysql](https://cloud.google.com/sql/docs/mysql/connect-external-app#pymysql-tcp)
+- Install Proxy on Mac: <br>
+`curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64`<br>
+`chmod +x cloud_sql_proxy`<br>
+- Start Proxy in cmd:`./cloud_sql_proxy -instances=ac295-data-science-289013:us-east1:artimages=tcp:3306`<br>
+Note: `ac295-data-science-289013:us-east1:artimages` is Selina's sql instance <br>
+- In python: `python sql_test.py`
+
 
 Previous method (ignore):
 [instruction](https://cloud.google.com/sql/docs/sqlserver/quickstart)
