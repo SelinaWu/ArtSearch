@@ -14,3 +14,7 @@ Develop a full-functioning art search engine.
 ### Relevant Doc
 [Google Doc](https://docs.google.com/document/d/1wCjr7nEeb-J4IZ7t8HJxeMzG3G4R0kNWznpK6ybn7o0/edit)
 
+### gcp MySQL 
+instance_id: artimages
+root password: ArtSearchAm295
+
