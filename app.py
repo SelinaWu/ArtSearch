@@ -13,7 +13,7 @@ def index():
         art_name = request.form['artName']
         
         try:
-            df = pd.read_csv("./gap_images/gap_images/metadata.csv")
+            df = pd.read_csv("./metadata.csv")
             # find art object
             row = df.loc[df.Title==art_name][['Title','image_src','Artist']]
             art_obj = row.to_dict('records')[0]
