@@ -15,11 +15,15 @@ Develop a full-functioning art search engine.
 [Google Doc](https://docs.google.com/document/d/1wCjr7nEeb-J4IZ7t8HJxeMzG3G4R0kNWznpK6ybn7o0/edit)
 
 ### gcp MySQL 
-[instruction](https://cloud.google.com/sql/docs/sqlserver/quickstart)
-Exist error from SSMS.
-
 
 instance_id: artimages
-
+<br>
 root password: ArtSearchAm295
+
+Current method: 
+[Connect Cloud SQL to Python - pymysql](https://cloud.google.com/sql/docs/mysql/connect-external-app#pymysql-tcp)
+
+Previous method (ignore):
+[instruction](https://cloud.google.com/sql/docs/sqlserver/quickstart)
+Exist error from SSMS.
 
