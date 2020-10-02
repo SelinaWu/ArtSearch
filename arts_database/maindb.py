@@ -1,48 +1,54 @@
 from flask import Flask, request
 import os
-import matplotlib.pyplot as plt
+import cv2
+import pandas as pd
+import numpy as np
+from sklearn.decomposition import PCA
 
 app = Flask(__name__)
 
 DATABASE_FOLDER= 'arts_database/static/database/gap_images/gap_images'
+META_FOLDER = 'arts_database/static/database/gap_images'
 UPLOAD_FOLDER= 'arts_database/static/uploads'
 
 def cos_similarity(A,B):
+    # A and B are both (32,) numpy array
+    res = np.dot(A,B)/(np.linalg.norm(A)*np.linalg.norm(B))
+    return res
 
-    # TODO calculate the similarity of two images
-    return 1
+def read_image():
+    file_path = os.path.join(UPLOAD_FOLDER, request.get_json()['upload'])
+    img_obj = cv2.imread(file_path)
+    img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
+    img_obj = cv2.resize(img_obj, dsize = (32,32))
+    pca = PCA(n_components=1)
+    img = pca.fit_transform(img_obj).reshape(32,)
 
-def read_database():
-    image_list = []
-    # r=>root, d=>directories, f=>files
-    for r, d, f in os.walk(DATABASE_FOLDER):
-        for item in f:
-            if '.jpg' in item:
-                image_list.append(os.path.join(r, item))
-    return image_list
+    return img
+
     
 @app.route("/",methods=['POST','GET'])
 def search_image():
 
-    # TODO: find the image with the closest similarity in database
-    file_path = os.path.join(UPLOAD_FOLDER, request.get_json()['upload'])
-    image_file = plt.imread(file_path)
-    return_image = None
+    # TODO: use Dask instead
+    img_obj = read_image()
     filename = ''
-
-    image_list = read_database()
-    sim = 0
-    for img in image_list[:10]:
-        img_obj = plt.imread(img)
-        new_sim = cos_similarity(image_file, img_obj)
+    sim = -float('Inf')
+    df = pd.read_csv(os.path.join(META_FOLDER, 'image_info.csv'), index_col=0)
+    for i in range(len(df)):
+        img_info = df.iloc[i,:].values
+        new_sim = cos_similarity(img_info, img_obj)
         if new_sim > sim:
             sim = new_sim
-            return_image = img_obj
-            filename = img
+            filename = df.index[i]
     
-    return_filename = filename.split('/')[-1]
-    return return_filename
-    #return return_image, filename
+    if filename == '':
+        url = ''
+    else:
+        meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
+        url = meta[meta['file_id'] == filename]['image_src'].values[0]
+
+    return url
 
 
 

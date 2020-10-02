@@ -5,8 +5,6 @@ from werkzeug.utils import secure_filename
 import requests
 import sys
 
-UPLOAD_FOLDER = 'arts_database/static/uploads'
-DATABASE_FOLDER= '/database/gap_images/gap_images'
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -33,33 +31,30 @@ def upload_image():
 		filename = secure_filename(file.filename)
 
 		# TODO: save uploaded image to the database
-		file.save(os.path.join(UPLOAD_FOLDER, filename))
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		resp = requests.post(url=db_url,json={'upload':filename})
 		#return resp.content
-		filename = str(resp.text)
+		img_url = str(resp.text)
+
+		print(img_url)
 		
 		#return filename
-		if filename =='':
+		if img_url =='':
 			flash('No similar image found')
 			return redirect(request.url)
-		print('upload_image filename: ' + filename)
-		flash('Image successfully uploaded and displayed')
 
-		return render_template('upload.html', filename = filename)
+		return render_template('upload.html', img_url = img_url)
 		#return render_template('upload.html', filename = filename)
 	
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg, gif')
 		return redirect(request.url)
 
-@app.route('/display/<string:filename>' )
-def display_image(filename):
+@app.route('/display/<img_url>' )
+def display_image(img_url):
 	# receive cosine similar image filename and display
 	
-	print('display_image filename: ' + os.path.join(DATABASE_FOLDER, filename))
-	
-
-	return redirect(url_for('static', filename=filename), code=301)
+	return img_url
 
 
 if __name__=="__main__":
