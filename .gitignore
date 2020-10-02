@@ -138,8 +138,9 @@ dmypy.json
 cython_debug/
 
 # big data file
-arts_database/static/*
-upload_image/static/*
+arts_database/static/database/gap_images/gap_images/*
+arts_database/static/database/gap_images/metadata.csv
+upload_image/static/uploads/*
 
 # not ignore below
 !arts_database/static/database/gap_images/image_info.csv
