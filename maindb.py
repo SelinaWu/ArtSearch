@@ -16,13 +16,11 @@ def index():
         print("Get title: ", Title)
         try:
             
-            sql = "SELECT `Artist`, `Title`, `image_src` FROM `arts` WHERE `Title`=%s"
+            sql = "SELECT `Artist`, `Title`, `image_src` FROM `artsimg` WHERE `Title`=%s"
             #engine.execute(sql, ('Bambocciata (Childishness)',))
             art_obj = engine.execute(sql, (Title,)).fetchall()[0]
             
-            print("RETURN :", art_obj[2])
-            
-            return art_obj[2]
+            return '{};{};{}'.format(art_obj[0], art_obj[1], art_obj[2]) 
         except:
             art_obj = {"Title":"No Input",
                    "image_src":"None", 
