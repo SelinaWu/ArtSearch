@@ -28,6 +28,7 @@ Current method:
 - Start Proxy in cmd:`./cloud_sql_proxy -instances=ac295-data-science-289013:us-east1:artimages=tcp:3306`<br>
 Note: `ac295-data-science-289013:us-east1:artimages` is Selina's sql instance <br>
 - In python: `python sql_test.py`
+- Load csv to sql server in python: [link](https://datatofish.com/import-csv-sql-server-python/)
 
 
 Previous method (ignore):
