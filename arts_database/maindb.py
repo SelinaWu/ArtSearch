@@ -17,12 +17,16 @@ def cos_similarity(A,B):
     return res
 
 def read_image():
-    file_path = os.path.join(UPLOAD_FOLDER, request.get_json()['upload'])
-    img_obj = cv2.imread(file_path)
-    img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
-    img_obj = cv2.resize(img_obj, dsize = (32,32))
-    pca = PCA(n_components=1)
-    img = pca.fit_transform(img_obj).reshape(32,)
+    # file_path = os.path.join(UPLOAD_FOLDER, request.get_json()['upload'])
+    # img_obj = cv2.imread(file_path)
+    # img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
+    # img_obj = cv2.resize(img_obj, dsize = (32,32))
+    # pca = PCA(n_components=1)
+    # img = pca.fit_transform(img_obj).reshape(32,)
+
+    # TODO: read the csv file from DB
+    df_name = request.get_json()['upload']
+    
 
     return img
 

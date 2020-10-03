@@ -1,6 +1,6 @@
 from flask import Flask
 
-UPLOAD_FOLDER = 'arts_database/static/uploads'
+UPLOAD_FOLDER = 'image_frontend/static/uploads'
 #DATABASE_FOLDER= '/database/gap_images/gap_images'
 
 app = Flask(__name__)
