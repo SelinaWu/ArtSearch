@@ -17,16 +17,17 @@ def cos_similarity(A,B):
     return res
 
 def read_image():
-    # file_path = os.path.join(UPLOAD_FOLDER, request.get_json()['upload'])
-    # img_obj = cv2.imread(file_path)
-    # img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
-    # img_obj = cv2.resize(img_obj, dsize = (32,32))
-    # pca = PCA(n_components=1)
-    # img = pca.fit_transform(img_obj).reshape(32,)
+    image_file = request.files['upload']
+    img_str = image_file.read()
+    image_file.close()
 
-    # TODO: read the csv file from DB
-    df_name = request.get_json()['upload']
-    
+    # CV2
+    nparr = np.fromstring(img_str, np.uint8)
+    img_obj = cv2.imdecode(nparr, cv2.IMREAD_COLOR) # cv2.IMREAD_COLOR in OpenCV 3.1
+    img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
+    img_obj = cv2.resize(img_obj, dsize = (32,32))
+    pca = PCA(n_components=1)
+    img = pca.fit_transform(img_obj).reshape(32,)
 
     return img
 
@@ -34,10 +35,12 @@ def read_image():
 @app.route("/",methods=['POST','GET'])
 def search_image():
 
-    # TODO: use Dask instead
+    
     img_obj = read_image()
     filename = ''
     sim = -float('Inf')
+
+    # TODO: read dataframe from DB
     df = pd.read_csv(os.path.join(META_FOLDER, 'image_info.csv'), index_col=0)
     for i in range(len(df)):
         img_info = df.iloc[i,:].values
@@ -49,6 +52,7 @@ def search_image():
     if filename == '':
         url = ''
     else:
+        # TODO: read metadata from db
         meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
         url = meta[meta['file_id'] == filename]['image_src'].values[0]
 
