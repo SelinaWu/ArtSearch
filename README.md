@@ -15,6 +15,8 @@ Develop a full-functioning art search engine.
 [Google Doc](https://docs.google.com/document/d/1wCjr7nEeb-J4IZ7t8HJxeMzG3G4R0kNWznpK6ybn7o0/edit)
 
 ### gcp MySQL 
+Change `localhost` into `34.73.0.192` : <br>
+`engine = create_engine('mysql+pymysql://root:ArtSearchAm295@34.73.0.192/artsearch')`
 
 instance_id: artimages
 <br>
