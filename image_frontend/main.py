@@ -36,8 +36,9 @@ def upload_image():
 		filename = secure_filename(file.filename)
 		resp = requests.post(url=db_url,files={'upload':file})
 		#return resp.content
-		img_url = str(resp.text)
-		
+		#img_url = str(resp.text)
+		img_url = resp.content.decode('utf-8')
+		print(img_url)
 		#return filename
 		if img_url =='':
 			flash('No similar image found')

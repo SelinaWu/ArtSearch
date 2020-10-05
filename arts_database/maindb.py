@@ -6,6 +6,10 @@ import numpy as np
 from sklearn.decomposition import PCA
 META_FOLDER = 'arts_database/static/database/gap_images'
 
+from sqlalchemy import create_engine
+engine = create_engine('mysql+pymysql://root:ArtSearchAm295@34.73.0.192/artsearch')
+app = Flask(__name__)
+
 def cos_similarity(A,B):
     # A and B are both (32,) numpy array
     res = np.dot(A,B)/(np.linalg.norm(A)*np.linalg.norm(B))
@@ -33,26 +37,34 @@ def search_image():
     sim = -float('Inf')
 
     # TODO: read dataframe from DB
-    df = pd.read_csv(os.path.join(META_FOLDER, 'image_info.csv'), index_col=0)
+    # df = pd.read_csv(os.path.join(META_FOLDER, 'image_info.csv'), index_col=0)
+    # for i in range(len(df)):
+    #     img_info = df.iloc[i,:].values
+    #     new_sim = cos_similarity(img_info, img_obj)
+    #     if new_sim > sim:
+    #         sim = new_sim
+    #         filename = df.index[i]
+    df = pd.read_sql("SELECT * FROM imageinfo", con=engine)
     for i in range(len(df)):
-        img_info = df.iloc[i,:].values
+        img_info = df.iloc[i,:-1].values
+        
         new_sim = cos_similarity(img_info, img_obj)
         if new_sim > sim:
             sim = new_sim
-            filename = df.index[i]
+            filename = df.iloc[i,]['file_id']
     
     if filename == '':
         url = ''
     else:
         # TODO: read metadata from db
-        # Title = filename
-        # sql = "SELECT `image_src` FROM `artsimg` WHERE `Title`=%s"
-        # url = engine.execute(sql, (Title,)).fetchall()[0]
+        Title = filename
+        sql = "SELECT `image_src` FROM `artsimg` WHERE `file_id`=%s"
+        url = engine.execute(sql, (Title,)).fetchall()[0]
+        
+        # meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
+        # url = meta[meta['file_id'] == filename]['image_src'].values[0]
 
-        meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
-        url = meta[meta['file_id'] == filename]['image_src'].values[0]
-
-    return url
+    return url[0]
 
 def match_image():
     Title = request.get_json()['artName'] 
@@ -71,9 +83,6 @@ def match_image():
 
 
 ############################## filename_frontend #######################################
-from sqlalchemy import create_engine
-engine = create_engine('mysql+pymysql://root:ArtSearchAm295@127.0.0.1/artsearch')
-app = Flask(__name__)
 
       
 @app.route('/', methods=['POST', 'GET'])
@@ -84,8 +93,12 @@ def index():
             art_obj = match_image()
             return art_obj
         elif request.files:
+            # url = search_image()
+            # return url
+            # receive input from name content in html
             url = search_image()
-            return url
+            return url         
+
             
     else:
         return "maindb.py - This is get method - try using post -- "

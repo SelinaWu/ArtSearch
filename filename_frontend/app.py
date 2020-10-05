@@ -19,12 +19,12 @@ def index():
             print("to db: ", db_url)       
             resp = requests.post(url=db_url,json={'artName':Title})
             art_obj_url = resp.content.decode('utf-8')
-            print(type(art_obj_url),art_obj_url)
+            art_obj_ls = art_obj_url.split(";")
             art_obj = {"Title": Title,
-                       "image_src": art_obj_url, 
-                       "Artist":"None"}
+                       "image_src": art_obj_ls[2], 
+                       "Artist":art_obj_ls[0]}
             return render_template('index.html', art_obj=art_obj)
-
+            
         except:
             return 'There was an issue loading art_name'
             
