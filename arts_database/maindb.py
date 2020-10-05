@@ -4,6 +4,8 @@ import cv2
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
+from keras.layers import Input, Conv2D, MaxPooling2D, UpSampling2D
+from keras.models import Model
 META_FOLDER = './static/database/gap_images'
 
 def cos_similarity(A,B):
@@ -26,6 +28,48 @@ def read_image():
 
     return img
 
+def read_image_2():
+    image_file = request.files['upload']
+    img_str = image_file.read()
+    image_file.close()
+    encoder = encoder = Model(inputs=autoencoder.input, outputs=autoencoder.get_layer('encoder').output)
+    # CV2
+    nparr = np.fromstring(img_str, np.uint8)
+    img_obj = cv2.imdecode(nparr, cv2.IMREAD_COLOR) # cv2.IMREAD_COLOR in OpenCV 3.1
+    img_obj = cv2.cvtColor(img_obj, cv2.COLOR_BGR2GRAY)
+    img_obj = cv2.resize(img_obj, dsize = (32,32))
+    pca = PCA(n_components=1)
+    img = pca.fit_transform(img_obj).reshape(32,)
+    img = img.astype('float32') / 1023.
+    img = img.reshape(1, 32, 32, 1)
+    img = np.asarray(encoder.predict(img_obj))
+    return img
+
+def search_image_2():
+    img_obj = read_imag_2()
+    filename = ''
+    sim = -float('Inf')
+     # TODO: read dataframe from DB
+    df = pd.read_csv(os.path.join(META_FOLDER, 'image_info_cnn.csv'), index_col=0)
+    for i in range(len(df)):
+        img_info = df.iloc[i,:].values
+        new_sim = cos_similarity(img_info, img_obj)
+        if new_sim > sim:
+            sim = new_sim
+            filename = df.index[i]
+    
+    if filename == '':
+        url = ''
+    else:
+        # TODO: read metadata from db
+        # Title = filename
+        # sql = "SELECT `image_src` FROM `artsimg` WHERE `Title`=%s"
+        # url = engine.execute(sql, (Title,)).fetchall()[0]
+
+        meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
+        url = meta[meta['file_id'] == filename]['image_src'].values[0]
+
+    return url
     
 def search_image():
     img_obj = read_image()
@@ -99,7 +143,7 @@ def index():
             art_obj = match_image()
             return art_obj
         elif request.files:
-            url = search_image()
+            url = search_image_2()
             return url
             
     else:
