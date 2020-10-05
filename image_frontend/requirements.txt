@@ -5,3 +5,4 @@ Flask == 1.1.2
 flask_sqlalchemy
 sqlalchemy
 opencv-python
+sklearn

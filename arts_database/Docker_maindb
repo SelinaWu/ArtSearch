@@ -2,6 +2,11 @@
 # simple web application. 
 FROM python:3.7-slim-buster
 
+RUN apt-get update ##[edited]
+RUN apt-get install 'ffmpeg'\
+    'libsm6'\ 
+    'libxext6'  -y
+
 # This exposes the port 8082 so that that Docker container can receive requests through this port.
 EXPOSE 8082
 
