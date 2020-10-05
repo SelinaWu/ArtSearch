@@ -1,11 +1,13 @@
-Docker container createion:
+Docker:
+
 
 docker build -t task1:frontend -f Docker_image_frontend .
-
 docker build -t task2:frontend -f Docker_filename_frontend .
-
-
 docker build -t webapp:db -f Docker_maindb .
+
+Create Webservice
+docker network create appNetwork
+
 
 #RUNNING DB 
 #RUNNING 2 FRONT END
@@ -21,5 +23,5 @@ K8s
 Minikube start 
 
 kubectl apply -f webapp_configmap.yml
-kubectl apply -f webapp_db_deployment.yml
+kubectl apply -f web_db_deployment.yml
 kubectl apply -f image_deploy_k8s.yml
