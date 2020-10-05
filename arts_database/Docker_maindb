@@ -14,6 +14,7 @@ EXPOSE 8082
 COPY maindb.py maindb.py
 COPY requirements.txt requirements.txt
 COPY ./static ./static
+COPY autoencoder.h5 autoencoder.h5
 
 
 # Need to download and install the python package e.g. Flask, requests etc.
