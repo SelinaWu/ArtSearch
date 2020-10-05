@@ -80,10 +80,11 @@ engine = create_engine(
             drivername="mysql+pymysql",
             username="root",  # e.g. "my-database-user"
             password="ArtSearchAm295",  # e.g. "my-database-password"
-            host=127.0.0.1,  # e.g. "127.0.0.1"
+            host="127.0.0.1",  #e.g. "127.0.0.1"
             port=3306,  # e.g. 3306
             database="artsearch",  # e.g. "my-database-name"
         )
+)
     # ... Specify additional properties here.
     
     # 'mysql+pymysql://root:ArtSearchAm295@localhost/artsearch')
