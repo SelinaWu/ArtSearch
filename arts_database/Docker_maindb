@@ -9,8 +9,9 @@ EXPOSE 8082
 COPY maindb.py maindb.py
 COPY requirements.txt requirements.txt
 
+
 # Need to download and install the python package e.g. Flask, requests etc.
 RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
-CMD python maindb.py
+CMD python ./maindb.py
