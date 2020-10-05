@@ -4,7 +4,7 @@ import cv2
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
-META_FOLDER = 'arts_database/static/database/gap_images'
+META_FOLDER = './static/database/gap_images'
 
 def cos_similarity(A,B):
     # A and B are both (32,) numpy array
@@ -71,8 +71,22 @@ def match_image():
 
 
 ############################## filename_frontend #######################################
+import sqlalchemy
 from sqlalchemy import create_engine
-engine = create_engine('mysql+pymysql://root:ArtSearchAm295@127.0.0.1/artsearch')
+engine = create_engine(
+        # Equivalent URL:
+        # mysql+pymysql://<db_user>:<db_pass>@<db_host>:<db_port>/<db_name>
+        sqlalchemy.engine.url.URL(
+            drivername="mysql+pymysql",
+            username="root",  # e.g. "my-database-user"
+            password="ArtSearchAm295",  # e.g. "my-database-password"
+            host=127.0.0.1,  # e.g. "127.0.0.1"
+            port=3306,  # e.g. 3306
+            database="artsearch",  # e.g. "my-database-name"
+        )
+    # ... Specify additional properties here.
+    
+    # 'mysql+pymysql://root:ArtSearchAm295@localhost/artsearch')
 app = Flask(__name__)
 
       

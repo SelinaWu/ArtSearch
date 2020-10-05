@@ -13,6 +13,7 @@ EXPOSE 8082
 # Copy our python script over to the Docker container.
 COPY maindb.py maindb.py
 COPY requirements.txt requirements.txt
+COPY ./static ./static
 
 
 # Need to download and install the python package e.g. Flask, requests etc.
