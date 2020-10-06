@@ -34,18 +34,14 @@ Export PROJECT_ID = ac295artsearch
 //retag
  change to your image id!
 
-docker image tag 2aaed1f70b81 gcr.io/${PROJECT_ID}/task1:frontend
-docker image tag 8c85bd87bdd0 gcr.io/${PROJECT_ID}/webapp:db 
+docker build -t gcr.io/${PROJECT_ID}/webapp:db -f Docker_image_frontend .
 
-
-docker push gcr.io/${PROJECT_ID}/webapp:db 
 docker push gcr.io/${PROJECT_ID}/task1:frontend
 
-
+kubectl apply -f filename_deploy_gcp.yml
 Append node
 gcloud container clusters create artsearch-cluster --num-nodes 2
 
-kubectl apply -f webapp_configmap.yml
-kubectl apply -f web_db_gcp.yml
-kubectl apply -f image_deploy_gcp.yml
+
+kubectl apply -f filename_deploy_gcp.yml
 
