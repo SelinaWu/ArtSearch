@@ -20,7 +20,7 @@ Develop a full-functioning art search engine.
 -Create a container for image Search (Cosine Similarity) (port 8083):
 `docker build -t task1:frontend -f Docker_image_frontend  .`<br>
 
--Create a container for database deployment (port 8082):
+-Create a container for database deployment (port 8082):<br>
 `docker build -t webapp:db -f Docker_maindb .`<br>
 
 ### KUBERNETES COMMANDS
@@ -38,6 +38,8 @@ Testing local deployment on minikube
 --Deploy image search front end: <br>
 `kubectl apply -f image_deploy_k8s.yml`
 
+--Deploy and run test: <br>
+`minikube service webapp-task1-service` (service name in YAML) <br>
 
 ### GCP Deployment COMMANDS
 
