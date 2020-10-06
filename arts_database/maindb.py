@@ -16,6 +16,11 @@ app = Flask(__name__)
 
 def cos_similarity(A,B):
     # A and B are both (32,) numpy array
+    res = np.dot(A,B)/(np.linalg.norm(A)*np.linalg.norm(B))
+    return res
+
+def cos_similarity_2(A,B):
+    # A and B are both (32,) numpy array
     res = np.dot(A.reshape(1,128),B.reshape(128,1))/(np.linalg.norm(A)*np.linalg.norm(B))
     return res
 
@@ -59,7 +64,7 @@ def search_image_2():
     df = pd.read_csv(os.path.join(META_FOLDER, 'image_info_cnn.csv'), index_col=0)
     for i in range(len(df)):
         img_info = df.iloc[i,:].values
-        new_sim = cos_similarity(img_info, img_obj)
+        new_sim = cos_similarity_2(img_info, img_obj)
         if new_sim > sim:
             sim = new_sim
             filename = df.index[i]
@@ -142,7 +147,12 @@ def index():
             # url = search_image()
             # return url
             # receive input from name content in html
-            url = search_image_2()
+            val = request.files['button'].read().decode("utf-8") 
+            if val  == 'Submit':
+                print('hi')
+                url = search_image()
+            else:
+                url = search_image_2()
             return url         
 
             
