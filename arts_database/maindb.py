@@ -71,18 +71,18 @@ def search_image_2():
         new_sim = cos_similarity_2(img_info, img_obj)
         if new_sim > sim:
             sim = new_sim
-            filename = df.iloc[i,]['file_id']
+            filename = df.index[i]
     
     if filename == '':
         url = ''
     else:
         # TODO: read metadata from db
-        Title = filename
-        sql = "SELECT `image_src` FROM `artsimg` WHERE `file_id`=%s"
-        url = engine.execute(sql, (Title,)).fetchall()[0]
-        
-        # meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
-        # url = meta[meta['file_id'] == filename]['image_src'].values[0]
+        # Title = filename
+        # sql = "SELECT `image_src` FROM `artsimg` WHERE `Title`=%s"
+        # url = engine.execute(sql, (Title,)).fetchall()[0]
+
+        meta = pd.read_csv(os.path.join(META_FOLDER, 'metadata.csv'))
+        url = meta[meta['file_id'] == filename]['image_src'].values[0]
 
     return url
     
@@ -91,14 +91,6 @@ def search_image():
     filename = ''
     sim = -float('Inf')
 
-    # TODO: read dataframe from DB
-    # df = pd.read_csv(os.path.join(META_FOLDER, 'image_info.csv'), index_col=0)
-    # for i in range(len(df)):
-    #     img_info = df.iloc[i,:].values
-    #     new_sim = cos_similarity(img_info, img_obj)
-    #     if new_sim > sim:
-    #         sim = new_sim
-    #         filename = df.index[i]
     df = pd.read_sql("SELECT * FROM imageinfo", con=engine)
     for i in range(len(df)):
         img_info = df.iloc[i,:-1].values
