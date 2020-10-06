@@ -1,0 +1,294 @@
+<!doctype html>
+<head>
+	<style>
+
+		
+
+		body {
+			background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+			background-size: 1000%, 1000%;
+			animation: gradient 15s ease infinite;
+		}
+
+		@keyframes gradient {
+			0% {
+				background-position: 0% 50%;
+			}
+			50% {
+				background-position: 100% 50%;
+			}
+			100% {
+				background-position: 0% 50%;
+			}
+		}
+		img {
+		border-radius: 8px;
+		}
+		.Images{
+			position: relative;
+			top:360px;
+			left:33%;
+			width: 50%;
+			height: 50%;
+		}
+		.inputfile {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+		}
+
+		.inputfile + label {
+			font-size: 1.25em;
+			font-weight: 700;
+			position: relative;
+			top:10px;
+			/* left:-1.5%; */
+			/* color: white;
+			background-color: black;
+			display: inline-block; */
+			font-size: 16px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color:grey;
+			border: none;
+			margin: 4px 2px;
+			padding: 15px 25px;
+			border-radius: 15px;
+
+		}
+
+		.inputfile:focus + label,
+		.inputfile + label:hover {
+			background-color: black;
+		}
+
+		.inputfile + label {
+			cursor: pointer; /* "hand" cursor */
+		}
+
+		.inputfile:focus + label {
+			outline: 1px dotted #000;
+			outline: -webkit-focus-ring-color auto 5px;
+		}
+
+
+		h2{
+			color: white;
+  			font-family: verdana;
+			  font-size: 300%;
+			  position: relative;;
+			  top:300px;
+			  left: 28%
+			  
+		}
+
+		.center {
+			position: relative;
+			top: 300px;
+			/* left:50px; */
+			width: 100%;
+			text-align: center;
+			font-size: 18px;
+		}
+
+		.btn_class{
+			position: relative;
+			top:20px;
+			/* right:20px; */
+		}
+
+
+		.button2 {
+			font-size: 16px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #4CAF50;
+			border: none;
+			margin: 4px 2px;
+			padding: 15px 25px;
+
+			border-radius: 15px;
+			box-shadow: 0 9px #999;
+			/* border: 2px solid #008CBA; */
+			}
+
+		.button2:hover {
+			background-color: orange;
+			color: white;
+			}
+
+		.button2:active {
+			background-color: #3e8e41;
+			box-shadow: 0 5px #666;
+			transform: translateY(4px);
+			}
+
+
+		#myImg {
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			}
+
+			#myImg:hover {opacity: 0.7;}
+
+			/* This model draw from the css w3school tutorial!*/
+			/* The Modal (background) */
+			.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			padding-top: 100px; /* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+			}
+
+			/* Modal Content (image) */
+			.modal-content {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 700px;
+			}
+
+			/* Caption of Modal Image */
+			#caption {
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 700px;
+			text-align: center;
+			color: #ccc;
+			padding: 10px 0;
+			height: 150px;
+			}
+
+			/* Add Animation */
+			.modal-content, #caption {  
+			animation-name: zoom;
+			animation-duration: 0.6s;
+			}
+
+			@keyframes zoom {
+			from {transform: scale(0.1)} 
+			to {transform: scale(1)}
+			}
+
+			/* The Close Button */
+			.close {
+			position: absolute;
+			top: 15px;
+			right: 35px;
+			color: #f1f1f1;
+			font-size: 40px;
+			font-weight: bold;
+			transition: 0.3s;
+			}
+
+			.close:hover,
+			.close:focus {
+			color: #bbb;
+			text-decoration: none;
+			cursor: pointer;
+			}
+
+			/* 100% Image Width on Smaller Screens */
+			@media only screen and (max-width: 700px){
+			.modal-content {
+				width: 100%;
+			}
+			}
+
+		
+	</style>
+</body>
+</html>
+<title>Search Art Engine</title>
+<h2 id = "heading"> Upload a file and search !</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+<div class = "center">
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<div >
+			<input type="file" id = "file" class = "inputfile" name="file" autocomplete="off" required>
+			<label for="file">Choose a file</label>
+
+		</div>
+	</dl>
+	
+    <p class = "btn_class">
+		<button  id = "btn" class = "button2" name = 'button2' type="submit" value="Submit">Find Most Similar</button>
+	</p>
+	<p class = "btn_class">
+		<button  id = "btn" class = "button2" name = 'button2' type="submit" value="SubmitCNN">Find Most Similar Using CNN</button>
+	</p>
+</form>
+</div>
+
+{% if img_url %}
+	<div class = "Images">
+		<img id="myImg" src="{{ img_url }}">
+	</div>
+{% endif %}
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<span class="close">&times;</span>
+	<img class="modal-content" id="img01">
+	<div id="caption"></div>
+  </div>
+
+
+  <script>
+	// Get the modal
+	var modal = document.getElementById('myModal');
+	
+	// Get the image and insert it inside the modal - use its "alt" text as a caption
+	var img = document.getElementById('myImg');
+	var modalImg = document.getElementById("img01");
+	// var heading = document.getElementById("heading");
+
+	img.onclick = function(){
+	  modal.style.display = "block";
+	  modalImg.src = this.src;
+	  
+
+	}
+
+
+
+
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() { 
+	  modal.style.display = "none";
+	}
+	</script>
+</body>
+</html>
