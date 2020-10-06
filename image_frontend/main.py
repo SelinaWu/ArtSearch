@@ -34,7 +34,8 @@ def upload_image():
 		return redirect(request.url)
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
-		resp = requests.post(url=db_url,files={'upload':file})
+		print(request.form['button2'])
+		resp = requests.post(url=db_url,files={'upload':file, 'button':request.form['button2']})
 		#return resp.content
 		#img_url = str(resp.text)
 		img_url = resp.content.decode('utf-8')
