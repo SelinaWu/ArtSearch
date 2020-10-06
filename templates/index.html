@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Art Search</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="content" >
+	
+	<table style="margin-left: auto; margin-right: auto">
+		<tr>
+			<th>Art Name</th>
+			<th>Author</th>
+			<th>Image</th>
+		</tr>
+		
+		<tr>
+			<td>{{ art_obj.Title }}</td>
+			<td>{{ art_obj.Artist }}</td>
+			<td><img src={{ art_obj.image_src }} alt="{{ art_obj.Title }}" style="width:256px;height:256px;"></td>
+		</tr>
+		
+	</table>
+	
+	<div class="form">
+        <form action="/" method="POST" style="margin-left: auto; margin-right: auto">
+            <input type="text" name="artName" id="artName">
+            <input type="submit" value="Search Art">
+        </form>
+    </div>
+</div>
+{% endblock %}

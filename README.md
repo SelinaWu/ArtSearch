@@ -15,6 +15,8 @@ Develop a full-functioning art search engine.
 [Google Doc](https://docs.google.com/document/d/1wCjr7nEeb-J4IZ7t8HJxeMzG3G4R0kNWznpK6ybn7o0/edit)
 
 ### gcp MySQL 
+Change `localhost` into `34.73.0.192` : <br>
+`engine = create_engine('mysql+pymysql://root:ArtSearchAm295@34.73.0.192/artsearch')`
 
 instance_id: artimages
 <br>
@@ -28,6 +30,7 @@ Current method:
 - Start Proxy in cmd:`./cloud_sql_proxy -instances=ac295-data-science-289013:us-east1:artimages=tcp:3306`<br>
 Note: `ac295-data-science-289013:us-east1:artimages` is Selina's sql instance <br>
 - In python: `python sql_test.py`
+- Load csv to sql server in python: [link](https://datatofish.com/import-csv-sql-server-python/)
 
 
 Previous method (ignore):
