@@ -7,27 +7,11 @@ Develop a full-functioning art search engine.
 2) receive an image and find the most similar image and return
 
 ### Add 3 additional features:
-3) Feature 1 MongoDB/MySQL/any database + stateful set (Selina)
-4) Feature 5 New metric (Alice, Javin)
-5) Feature 8 Aesthetically pleasing frontend(s) (Lin)
+3) Feature 1 MongoDB/MySQL/any database + stateful set 
+4) Feature 5 New metric 
+5) Feature 8 Aesthetically pleasing frontend(s)
 
 
-### File Structure:
-
-├── task1_deployment_k8s.yaml<br>
-├── image_frontend <br>
-│   ├── Docker_task1frontend<br>
-│   ├── requirements.txt<br>
-│   ├── task1.py<br>
-│   └── templates<br>
-│       ├── base.html<br>
-│       └── index.html<br>
-├── webapp_configmap.yaml<br>
-├── webapp_db_deployment_k8s.yaml<br>
-└── arts_database<br>
-    ├── Docker_maindb<br>
-    ├── maindb.py<br>
-    └── requirements.txt<br>
 
 ### Docker
 -Create a container for image display (port 8081):
