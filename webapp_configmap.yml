@@ -1,6 +1,4 @@
-======================
-webapp_configmap.yaml
-======================
+
 # This defines a kubernetes service ConfigMap. This is the place to put all 
 # your application properties / configuration. 
 # In our case it's the database host. 

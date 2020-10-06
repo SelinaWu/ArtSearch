@@ -4,7 +4,7 @@ metadata:
   name: task1-get-image-deployment
 spec:
   replicas: 1
-  selector:a
+  selector:
     matchLabels:
       app: task1-app
   template:
