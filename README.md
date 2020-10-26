@@ -12,6 +12,10 @@ Develop a full-functioning art search engine.
 5) Feature 8 Aesthetically pleasing frontend(s)
 
 
+## Demo
+<p align="center">
+<img src="https://github.com/SelinaWu/ArtSearch/blob/master/web_demo.gif" width="48%" height="48%" />
+</p> 
 
 ### Docker
 -Create a container for image display (port 8081):
